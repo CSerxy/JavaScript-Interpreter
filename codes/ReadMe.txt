@@ -28,3 +28,23 @@ StdAfx.h, StdAfx.cpp
 应用程序向导使用“TODO:”注释来指示应添加或自定义的源代码部分。
 
 /////////////////////////////////////////////////////////////////////////////
+/* Your functions will be put here */
+
+
+
+main.cpp
+
+Frank He 应该在main.cpp中添加以下函数:
+
+objReturn* dealWithObejct(string startString, char startChar, char endChar, int judge1, int judge2);
+
+我需要这个函数做以下事情：
+1. 接受一个初始的string，以这个string为开始进行处理，处理内容的范围为以startChar为开始的字符, 以endChar为截止的字符，如果处理完了初始的string还没有遇到startString，则你自己用cin之类的读入新的字符串进行处理。在这里需要注意读了新的字符串之后如果遇到了截止字符串，则该函数结束。你需要把截止字符之前的东西截断，把未处理的字符串部分放入objReturn中的next字符串中（这样做的原因是这部分未处理的字符串我之后需要用到）。
+
+2. judge1如果为1，则说明这是一个判断语句的表达式，那么你在运算完成之后需要把这个表达式的返回值0或1赋给objReturn中的judge，因为我的if语句或者while或者for中会用到。
+
+3. judge2如果为2，则说明这是一个需要你把整个表达式记录下来的情况，你需要把从起始字符开始、直到遇到结束字符为止之中遇到的字符串(不包括起始字符和结束字符)连在一起返回给objReturn的memory。
+
+特别说明：startString有可能为""，则你直接读取新字符串即可。
+startChar可能为''，则你直接可以开始处理
+endChar不可能为''

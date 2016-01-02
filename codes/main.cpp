@@ -14,18 +14,20 @@ typedef struct objReturn {
 void getString(string u);
 int weatherContain(string u, string v);
 
+objReturn* dealWithObejct(string startString, char startChar, char endChar, int judge1, int judge2);
+
 void dealWithFor(string u);
 void dealWithWhile(string u);
 void dealWithIf(string u);
 
 int main() {
-	getString("exit();");
+	getString("", "exit();");
 }
 
-void getString(string u) {
+void getString(string startString, string endString) {
 	string current;
 	while (cin >> current) {
-		if (current == u)
+		if (current == endString)
 			return;
 		cout << current;
 		if (current == "for" || weatherContain(current, "for")) {
@@ -72,7 +74,7 @@ void dealWithFor(string u) {
 	op1 = dealWithObejct(k.next, "", ";", 1, 1);
 	op2 = dealWithObejct(op1.next, "", ")", 0, 1);
 	
-	while (k.judge) {
+	while (op1.judge) {
 		
 	}
 }
