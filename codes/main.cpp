@@ -11,7 +11,7 @@ typedef struct objReturn {
 	string memory;
 } objReturn;
 
-void getString(string u);
+void getString(string startString, string endString, int judge1, string a[], int& num);
 int weatherContain(string u, string v);
 
 objReturn* dealWithObejct(string startString, char startChar, char endChar, int judge1, int judge2);
@@ -21,10 +21,12 @@ void dealWithWhile(string u);
 void dealWithIf(string u);
 
 int main() {
-	getString("", "exit();");
+	string kkk[2];
+	int kkkk;
+	getString("", "exit();", 0, kkk, kkkk);
 }
 
-void getString(string startString, string endString) {
+void getString(string startString, string endString, int judge1, string a[], int& num) {
 	string current;
 	while (cin >> current) {
 		if (current == endString)
@@ -73,9 +75,31 @@ void dealWithFor(string u) {
 	k = dealWithObejct(u, "(", ";", 0, 0);
 	op1 = dealWithObejct(k.next, "", ";", 1, 1);
 	op2 = dealWithObejct(op1.next, "", ")", 0, 1);
-	
-	while (op1.judge) {
-		
+
+	if (op2.next == "")
+		cin << op2.next;
+
+	string a[200];									/* This place needs to be attention. */
+	int num = 0;
+
+	if (op2.next == "{" || weatherContain(op2.next, "{")) {
+		if (op2.next == "{")
+			getString("", "}", 1, a, num);
+		else
+			getString(op2.next.substr(1), "}", 1, a, num);
+//		for (int i = 0; i < num; i++)
+//			cout << a[i];
+	} else if (op2.next == ";" || weatherContain(op2.next, ";")) {
+		num = 0;
+	} else {
+		a[num] = dealWithObejct(op2.next, "", ";", 0, 1).memory;
+		num ++;
+	}
+	string kkk[2];
+	int kkkk = 0;
+	while (dealWithObejct(op1.memory + ";", "", ";", 1, 0).judge) {
+		for (int i = 0; i < num; i++)
+			getString(a[i] + "^", "^", 0, kkk, kkkk);
 	}
 }
 
