@@ -11,7 +11,7 @@ typedef struct objReturn {
 	string memory;
 } objReturn;
 
-void getString(string startString, string endString, int judge1, string a[], int& num);
+void getString(string remain, string startString, string endString, int judge1, string a[], int& num);
 int weatherContain(string u, string v);
 
 objReturn* dealWithObejct(string startString, char startChar, char endChar, int judge1, int judge2);
@@ -20,40 +20,66 @@ void dealWithFor(string u);
 void dealWithWhile(string u);
 void dealWithIf(string u);
 
-int main() {
+int main(int argc, char ** argv) {
+	string input = "";
+	if (argc == 2) {
+		string temp;
+		ifscream re = open(argv[1]);
+		stringstream buffer;
+		buffer << t.rdbuf();
+		input = buffer.str();
+	}
+	cout << input;
 	string kkk[2];
 	int kkkk;
-	getString("", "exit();", 0, kkk, kkkk);
+	getString(input, "", "exit();", 0, kkk, kkkk);
 }
 
-void getString(string startString, string endString, int judge1, string a[], int& num) {
+void getString(string remain, string startString, string endString, int judge1, string a[], int& num) {
+	int i;
 	string current;
-	while (cin >> current) {
-		if (current == endString)
+	while (remain.length() != 0 || cin >> current) {
+
+		if (remain.length() != 0) {
+			for (i = 0; i < remain.length(); i++) 
+			if (remain[i] != ' ' && remain[i] != '\t' && remain[i] != '\n')
+				continue;
+			else 
+				break;
+			if (i == remain.length()) {
+				current = remain;
+				remain = "";
+			} else {
+				current = remain.substr(0, i);
+				remain.erase(0, i);
+			}
+		}
+
+		if (current == endString || weatherContain(current, endString));
 			return;
+
 		cout << current;
 		if (current == "for" || weatherContain(current, "for")) {
 			if (current == "for")
-				dealWithFor("");
+				dealWithFor(remain);
 			else
-				dealWithFor(current.substr(3));
-
+				dealWithFor(current.substr(3) + remain);
+			continue;
 		}
 		else if (current == "while" || weatherContain(current, "while")) {
 			if (current == "while")
-				dealWithWhile("");
+				dealWithWhile(remain);
 			else 
-				dealWithWhile(current.substr(5))
-
+				dealWithWhile(current.substr(5) + remain)
+			continue;
 		}
 		else if (current == "if" || weatherContain(current, "if")) {
 			if (current == "if")
-				dealWithIf("");
+				dealWithIf(remain);
 			else 
-				dealWithIf(current.substr(2))
-
+				dealWithIf(current.substr(2) + remain)
+			continue;
 		}
-
 
 	}
 }
@@ -68,11 +94,29 @@ int weatherContain(string u, string v) {
 	return 1;
 }
 
-void dealWithFor(string u) {
+void dealWithFor(string remain) {
+	int i;
+	string current;
 	objReturn k, op1, op2;
-	if (u == "")
-		cin << u;
-	k = dealWithObejct(u, "(", ";", 0, 0);
+
+	if (remain == "")
+		cin << current;
+	else {
+		for (i = 0; i < remain.length(); i++) 
+		if (remain[i] != ' ' && remain[i] != '\t' && remain[i] != '\n')
+			continue;
+		else 
+			break;
+		if (i == remain.length()) {
+			current = remain;
+			remain = "";
+		} else {
+			current = remain.substr(0, i);
+			remain.erase(0, i);
+		}
+	}
+
+	k = dealWithObejct(remain, "(", ";", 0, 0);
 	op1 = dealWithObejct(k.next, "", ";", 1, 1);
 	op2 = dealWithObejct(op1.next, "", ")", 0, 1);
 
