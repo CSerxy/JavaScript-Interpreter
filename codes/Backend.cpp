@@ -192,7 +192,16 @@ Variable *CreateVariable(string type)
 	variable->Type = type;
 	variable->Initialize();
 
-	auto &cls = Classes[type];
+	if (type.length > 0 && std::find(Constants::ValueTypes.begin(), Constants::ValueTypes.end(), type) == Constants::ValueTypes.end())
+	{
+		auto &cls = Classes[type];
+		for each(auto item in cls.Variables)
+		{
+			variable->AddMember(item.Name);
+			Variable *child = CreateVariable(item.Type);
+		}
+	}
+	
 	Variables[variable->Flag] = variable;
 }
 
