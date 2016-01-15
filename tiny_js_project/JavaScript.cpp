@@ -2,10 +2,8 @@
 #include <assert.h>
 
 #define ASSERT(X) assert(X)
-/* Frees the given link IF it isn't owned by anything else */
 #define CLEAN(x) { VarLink *__v = x; if (__v && !__v->owned) { delete __v; } }
-/* Create a LINK to point to VAR and free the old link.
- * BUT this is more clever - it tries to keep the old link if it's not owned to save allocations */
+
 #define CREATE_LINK(LINK, VAR) { if (!LINK || LINK->owned) LINK = new VarLink(VAR); else LINK->replaceWith(VAR); }
 
 #include <string>
@@ -1082,7 +1080,7 @@ int Variable::getRefs() {
 
 // ----------------------------------------------------------------------------------- CSCRIPT
 
-CTinyJS::CTinyJS() {
+JavaScript::JavaScript() {
     l = 0;
     root = (new Variable(TINYJS_BLANK_DATA, SCRIPTVAR_OBJECT))->ref();
     // Add built-in classes
@@ -1094,7 +1092,7 @@ CTinyJS::CTinyJS() {
     root->addChild("Object", objectClass);
 }
 
-CTinyJS::~CTinyJS() {
+JavaScript::~JavaScript() {
     ASSERT(!l);
     scopes.clear();
     stringClass->unref();
@@ -1107,11 +1105,11 @@ CTinyJS::~CTinyJS() {
 #endif
 }
 
-void CTinyJS::trace() {
+void JavaScript::trace() {
     root->trace();
 }
 
-void CTinyJS::execute(const string &code) {
+void JavaScript::execute(const string &code) {
     Lexeme *oldLex = l;
     vector<Variable*> oldScopes = scopes;
     l = new Lexeme(code);
@@ -1141,7 +1139,7 @@ void CTinyJS::execute(const string &code) {
     scopes = oldScopes;
 }
 
-VarLink CTinyJS::evaluateComplex(const string &code) {
+VarLink JavaScript::evaluateComplex(const string &code) {
     Lexeme *oldLex = l;
     vector<Variable*> oldScopes = scopes;
 
@@ -1185,11 +1183,11 @@ VarLink CTinyJS::evaluateComplex(const string &code) {
     return VarLink(new Variable());
 }
 
-string CTinyJS::evaluate(const string &code) {
+string JavaScript::evaluate(const string &code) {
     return evaluateComplex(code).var->getString();
 }
 
-void CTinyJS::parseFunctionArguments(Variable *funcVar) {
+void JavaScript::parseFunctionArguments(Variable *funcVar) {
   l->match('(');
   while (l->tk!=')') {
       funcVar->addChildNoDup(l->tkStr);
@@ -1199,7 +1197,7 @@ void CTinyJS::parseFunctionArguments(Variable *funcVar) {
   l->match(')');
 }
 
-void CTinyJS::addNative(const string &funcDesc, JSCallback ptr, void *userdata) {
+void JavaScript::addNative(const string &funcDesc, JSCallback ptr, void *userdata) {
     Lexeme *oldLex = l;
     l = new Lexeme(funcDesc);
 
@@ -1228,7 +1226,7 @@ void CTinyJS::addNative(const string &funcDesc, JSCallback ptr, void *userdata) 
     base->addChild(funcName, funcVar);
 }
 
-VarLink *CTinyJS::parseFunctionDefinition() {
+VarLink *JavaScript::parseFunctionDefinition() {
   // actually parse a function...
   l->match(LEX_R_FUNCTION);
   string funcName = TINYJS_TEMP_NAME;
@@ -1250,7 +1248,7 @@ VarLink *CTinyJS::parseFunctionDefinition() {
  * on the start bracket). 'parent' is the object that contains this method,
  * if there was one (otherwise it's just a normnal function).
  */
-VarLink *CTinyJS::functionCall(bool &execute, VarLink *function, Variable *parent) {
+VarLink *JavaScript::functionCall(bool &execute, VarLink *function, Variable *parent) {
   if (execute) {
     if (!function->var->isFunction()) {
         string errorMsg = "Expecting '";
@@ -1344,7 +1342,7 @@ VarLink *CTinyJS::functionCall(bool &execute, VarLink *function, Variable *paren
   }
 }
 
-VarLink *CTinyJS::factor(bool &execute) {
+VarLink *JavaScript::factor(bool &execute) {
     if (l->tk=='(') {
         l->match('(');
         VarLink *a = base(execute);
@@ -1515,7 +1513,7 @@ VarLink *CTinyJS::factor(bool &execute) {
     return 0;
 }
 
-VarLink *CTinyJS::unary(bool &execute) {
+VarLink *JavaScript::unary(bool &execute) {
     VarLink *a;
     if (l->tk=='!') {
         l->match('!'); // binary not
@@ -1530,7 +1528,7 @@ VarLink *CTinyJS::unary(bool &execute) {
     return a;
 }
 
-VarLink *CTinyJS::term(bool &execute) {
+VarLink *JavaScript::term(bool &execute) {
     VarLink *a = unary(execute);
     while (l->tk=='*' || l->tk=='/' || l->tk=='%') {
         int op = l->tk;
@@ -1545,7 +1543,7 @@ VarLink *CTinyJS::term(bool &execute) {
     return a;
 }
 
-VarLink *CTinyJS::expression(bool &execute) {
+VarLink *JavaScript::expression(bool &execute) {
     bool negate = false;
     if (l->tk=='-') {
         l->match('-');
@@ -1585,7 +1583,7 @@ VarLink *CTinyJS::expression(bool &execute) {
     return a;
 }
 
-VarLink *CTinyJS::shift(bool &execute) {
+VarLink *JavaScript::shift(bool &execute) {
   VarLink *a = expression(execute);
   if (l->tk==LEX_LSHIFT || l->tk==LEX_RSHIFT || l->tk==LEX_RSHIFTUNSIGNED) {
     int op = l->tk;
@@ -1602,7 +1600,7 @@ VarLink *CTinyJS::shift(bool &execute) {
   return a;
 }
 
-VarLink *CTinyJS::condition(bool &execute) {
+VarLink *JavaScript::condition(bool &execute) {
     VarLink *a = shift(execute);
     VarLink *b;
     while (l->tk==LEX_EQUAL || l->tk==LEX_NEQUAL ||
@@ -1621,7 +1619,7 @@ VarLink *CTinyJS::condition(bool &execute) {
     return a;
 }
 
-VarLink *CTinyJS::logic(bool &execute) {
+VarLink *JavaScript::logic(bool &execute) {
     VarLink *a = condition(execute);
     VarLink *b;
     while (l->tk=='&' || l->tk=='|' || l->tk=='^' || l->tk==LEX_ANDAND || l->tk==LEX_OROR) {
@@ -1658,7 +1656,7 @@ VarLink *CTinyJS::logic(bool &execute) {
     return a;
 }
 
-VarLink *CTinyJS::ternary(bool &execute) {
+VarLink *JavaScript::ternary(bool &execute) {
   VarLink *lhs = logic(execute);
   bool noexec = false;
   if (l->tk=='?') {
@@ -1686,7 +1684,7 @@ VarLink *CTinyJS::ternary(bool &execute) {
   return lhs;
 }
 
-VarLink *CTinyJS::base(bool &execute) {
+VarLink *JavaScript::base(bool &execute) {
     VarLink *lhs = ternary(execute);
     if (l->tk=='=' || l->tk==LEX_PLUSEQUAL || l->tk==LEX_MINUSEQUAL) {
         /* If we're assigning to this and we don't have a parent,
@@ -1719,7 +1717,7 @@ VarLink *CTinyJS::base(bool &execute) {
     return lhs;
 }
 
-void CTinyJS::block(bool &execute) {
+void JavaScript::block(bool &execute) {
     l->match('{');
     if (execute) {
       while (l->tk && l->tk!='}')
@@ -1737,7 +1735,7 @@ void CTinyJS::block(bool &execute) {
 
 }
 
-void CTinyJS::statement(bool &execute) {
+void JavaScript::statement(bool &execute) {
     if (l->tk==LEX_ID ||
         l->tk==LEX_INT ||
         l->tk==LEX_FLOAT ||
@@ -1914,7 +1912,7 @@ void CTinyJS::statement(bool &execute) {
 }
 
 /// Get the given variable specified by a path (var1.var2.etc), or return 0
-Variable *CTinyJS::getScriptVariable(const string &path) {
+Variable *JavaScript::getScriptVariable(const string &path) {
     // traverse path
     size_t prevIdx = 0;
     size_t thisIdx = path.find('.');
@@ -1932,7 +1930,7 @@ Variable *CTinyJS::getScriptVariable(const string &path) {
 }
 
 /// Get the value of the given variable, or return 0
-const string *CTinyJS::getVariable(const string &path) {
+const string *JavaScript::getVariable(const string &path) {
     Variable *var = getScriptVariable(path);
     // return result
     if (var)
@@ -1942,7 +1940,7 @@ const string *CTinyJS::getVariable(const string &path) {
 }
 
 /// set the value of the given variable, return trur if it exists and gets set
-bool CTinyJS::setVariable(const std::string &path, const std::string &varData) {
+bool JavaScript::setVariable(const std::string &path, const std::string &varData) {
     Variable *var = getScriptVariable(path);
     // return result
     if (var) {
@@ -1959,7 +1957,7 @@ bool CTinyJS::setVariable(const std::string &path, const std::string &varData) {
 }
 
 /// Finds a child, looking recursively up the scopes
-VarLink *CTinyJS::findInScopes(const std::string &childName) {
+VarLink *JavaScript::findInScopes(const std::string &childName) {
     for (int s=scopes.size()-1;s>=0;s--) {
       VarLink *v = scopes[s]->findChild(childName);
       if (v) return v;
@@ -1969,7 +1967,7 @@ VarLink *CTinyJS::findInScopes(const std::string &childName) {
 }
 
 /// Look up in any parent classes of the given object
-VarLink *CTinyJS::findInParentClasses(Variable *object, const std::string &name) {
+VarLink *JavaScript::findInParentClasses(Variable *object, const std::string &name) {
     // Look for links to actual parent classes
     VarLink *parentClass = object->findChild(TINYJS_PROTOTYPE_CLASS);
     while (parentClass) {

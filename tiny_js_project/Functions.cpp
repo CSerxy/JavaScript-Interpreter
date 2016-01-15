@@ -6,7 +6,7 @@
 using namespace std;
 
 void scTrace(Variable *c, void *userdata) {
-    CTinyJS *js = (CTinyJS*)userdata;
+    JavaScript *js = (JavaScript*)userdata;
     js->root->trace();
 }
 
@@ -123,13 +123,13 @@ void scJSONStringify(Variable *c, void *) {
 }
 
 void scExec(Variable *c, void *data) {
-    CTinyJS *tinyJS = (CTinyJS *)data;
+    JavaScript *tinyJS = (JavaScript *)data;
     std::string str = c->getParameter("jsCode")->getString();
     tinyJS->execute(str);
 }
 
 void scEval(Variable *c, void *data) {
-    CTinyJS *tinyJS = (CTinyJS *)data;
+    JavaScript *tinyJS = (JavaScript *)data;
     std::string str = c->getParameter("jsCode")->getString();
     c->setReturnVar(tinyJS->evaluateComplex(str).var);
 }
@@ -190,7 +190,7 @@ void scArrayJoin(Variable *c, void *data) {
   c->getReturnVar()->setString(sstr.str());
 }
 
-void registerFunctions(CTinyJS *tinyJS) {
+void registerFunctions(JavaScript *tinyJS) {
     tinyJS->addNative("function exec(jsCode)", scExec, tinyJS);
     tinyJS->addNative("function eval(jsCode)", scEval, tinyJS);
     tinyJS->addNative("function trace()", scTrace, tinyJS);

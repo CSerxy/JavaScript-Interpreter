@@ -1,8 +1,8 @@
-#ifndef TINYJS_MATHFUNCTIONS_H
-#define TINYJS_MATHFUNCTIONS_H
+#ifndef MATHFUNCTIONS_H
+#define MATHFUNCTIONS_H
 
 #include "JavaScript.h"
 
-extern void registerMathFunctions(CTinyJS *tinyJS);
+extern void registerMathFunctions(JavaScript *tinyJS);
 
 #endif

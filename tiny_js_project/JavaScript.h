@@ -1,8 +1,7 @@
-#ifndef TINYJS_H
-#define TINYJS_H
+#ifndef JavaScript_H
+#define JavaScript_H
 
-// If defined, this keeps a note of all calls and where from in memory. This is slower, but good for debugging
-#define TINYJS_CALL_STACK
+#define JS_CALL_STACK
 
 #include <stdlib.h>
 #include <string>
@@ -92,7 +91,6 @@ enum SCRIPTVAR_FLAGS {
 #define TINYJS_TEMP_NAME ""
 #define TINYJS_BLANK_DATA ""
 
-/// convert the given string into a quoted string suitable for javascript
 std::string getJSString(const std::string &str);
 
 class CScriptException {
@@ -109,33 +107,29 @@ public:
     ~Lexeme(void);
 
     char currCh, nextCh;
-    int tk; ///< The type of the token that we have
-    int tokenStart; ///< Position in the data at the beginning of the token we have here
-    int tokenEnd; ///< Position in the data at the last character of the token we have here
-    int tokenLastEnd; ///< Position in the data at the last character of the last token
-    std::string tkStr; ///< Data contained in the token we have here
+    int tk;
+    int tokenStart;
+    int tokenEnd;
+    int tokenLastEnd;
+    std::string tkStr;
+    void match(int expected_tk);
+    static std::string getTokenStr(int token);
+    void reset();
 
-    void match(int expected_tk); ///< Lexical match wotsit
-    static std::string getTokenStr(int token); ///< Get the string representation of the given token
-    void reset(); ///< Reset this lex so we can start again
+    std::string getSubString(int pos);
+    Lexeme *getSubLex(int lastPosition);
 
-    std::string getSubString(int pos); ///< Return a sub-string from the given position up until right now
-    Lexeme *getSubLex(int lastPosition); ///< Return a sub-lexer from the given position up until right now
-
-    std::string getPosition(int pos=-1); ///< Return a string representing the position in lines and columns of the character pos given
+    std::string getPosition(int pos=-1);
 
 protected:
-    /* When we go into a loop, we use getSubLex to get a lexer for just the sub-part of the
-       relevant string. This doesn't re-allocate and copy the string, but instead copies
-       the data pointer and sets dataOwned to false, and dataStart/dataEnd to the relevant things. */
-    char *data; ///< Data string to get tokens from
-    int dataStart, dataEnd; ///< Start and end position in data string
-    bool dataOwned; ///< Do we own this data string?
+    char *data;
+    int dataStart, dataEnd;
+    bool dataOwned;
 
-    int dataPos; ///< Position in data (we CAN go past the end of the string here)
+    int dataPos;
 
     void getNextCh();
-    void getNextToken(); ///< Get the text token from our text string
+    void getNextToken();
 };
 
 class Variable;
@@ -152,47 +146,47 @@ public:
   bool owned;
 
   VarLink(Variable *var, const std::string &name = TINYJS_TEMP_NAME);
-  VarLink(const VarLink &link); ///< Copy constructor
+  VarLink(const VarLink &link);
   ~VarLink();
-  void replaceWith(Variable *newVar); ///< Replace the Variable pointed to
-  void replaceWith(VarLink *newVar); ///< Replace the Variable pointed to (just dereferences)
-  int getIntName(); ///< Get the name as an integer (for arrays)
-  void setIntName(int n); ///< Set the name as an integer (for arrays)
+  void replaceWith(Variable *newVar);
+  void replaceWith(VarLink *newVar);
+  int getIntName();
+  void setIntName(int n);
 };
 
-/// Variable class (containing a doubly-linked list of children)
 class Variable
 {
 public:
-    Variable(); ///< Create undefined
-    Variable(const std::string &varData, int varFlags); ///< User defined
-    Variable(const std::string &str); ///< Create a string
+    Variable();
+    Variable(const std::string &varData, int varFlags);
+    Variable(const std::string &str);
     Variable(double varData);
     Variable(int val);
     ~Variable(void);
 
-    Variable *getReturnVar(); ///< If this is a function, get the result value (for use by native functions)
-    void setReturnVar(Variable *var); ///< Set the result value. Use this when setting complex return data as it avoids a deepCopy()
-    Variable *getParameter(const std::string &name); ///< If this is a function, get the parameter with the given name (for use by native functions)
+    Variable *getReturnVar();
+    void setReturnVar(Variable *var);
+    Variable *getParameter(const std::string &name);
 
-    VarLink *findChild(const std::string &childName); ///< Tries to find a child with the given name, may return 0
-    VarLink *findChildOrCreate(const std::string &childName, int varFlags=SCRIPTVAR_UNDEFINED); ///< Tries to find a child with the given name, or will create it with the given flags
-    VarLink *findChildOrCreateByPath(const std::string &path); ///< Tries to find a child with the given path (separated by dots)
+    VarLink *findChild(const std::string &childName);
+    VarLink *findChildOrCreate(const std::string &childName, int varFlags=SCRIPTVAR_UNDEFINED);
+    VarLink *findChildOrCreateByPath(const std::string &path);
     VarLink *addChild(const std::string &childName, Variable *child=NULL);
-    VarLink *addChildNoDup(const std::string &childName, Variable *child=NULL); ///< add a child overwriting any with the same name
+    VarLink *addChildNoDup(const std::string &childName, Variable *child=NULL);
     void removeChild(Variable *child);
-    void removeLink(VarLink *link); ///< Remove a specific link (this is faster than finding via a child)
+    void removeLink(VarLink *link);
     void removeAllChildren();
-    Variable *getArrayIndex(int idx); ///< The the value at an array index
-    void setArrayIndex(int idx, Variable *value); ///< Set the value at an array index
-    int getArrayLength(); ///< If this is an array, return the number of items in it (else 0)
-    int getChildren(); ///< Get the number of children
+    Variable *getArrayIndex(int idx);
+    void setArrayIndex(int idx, Variable *value);
+    int getArrayLength();
+    int getChildren();
 
     int getInt();
     bool getBool() { return getInt() != 0; }
     double getDouble();
     const std::string &getString();
-    std::string getParsableString(); ///< get Data as a parsable javascript string
+    std::string getParsableString();
+    
     void setInt(int num);
     void setDouble(double val);
     void setString(const std::string &str);
@@ -210,98 +204,73 @@ public:
     bool isNative() { return (flags&SCRIPTVAR_NATIVE)!=0; }
     bool isUndefined() { return (flags & SCRIPTVAR_VARTYPEMASK) == SCRIPTVAR_UNDEFINED; }
     bool isNull() { return (flags & SCRIPTVAR_NULL)!=0; }
-    bool isBasic() { return firstChild==0; } ///< Is this *not* an array/object/etc
+    bool isBasic() { return firstChild==0; }
 
-    Variable *mathsOp(Variable *b, int op); ///< do a maths op with another script variable
-    void copyValue(Variable *val); ///< copy the value from the value given
-    Variable *deepCopy(); ///< deep copy this node and return the result
+    Variable *mathsOp(Variable *b, int op);
+    
+    void copyValue(Variable *val);
+    Variable *deepCopy();
 
-    void trace(std::string indentStr = "", const std::string &name = ""); ///< Dump out the contents of this using trace
-    std::string getFlagsAsString(); ///< For debugging - just dump a string version of the flags
-    void getJSON(std::ostringstream &destination, const std::string linePrefix=""); ///< Write out all the JS code needed to recreate this script variable to the stream (as JSON)
-    void setCallback(JSCallback callback, void *userdata); ///< Set the callback for native functions
+    void trace(std::string indentStr = "", const std::string &name = "");
+    
+    std::string getFlagsAsString();
+    
+    void getJSON(std::ostringstream &destination, const std::string linePrefix="");
+    void setCallback(JSCallback callback, void *userdata);
 
     VarLink *firstChild;
     VarLink *lastChild;
 
-    /// For memory management/garbage collection
-    Variable *ref(); ///< Add reference to this variable
-    void unref(); ///< Remove a reference, and delete this variable if required
-    int getRefs(); ///< Get the number of references to this script variable
+    Variable *ref();
+    void unref();
+    int getRefs();
 protected:
-    int refs; ///< The number of references held to this - used for garbage collection
+    int refs;
+    
+    std::string data;
+    long intData;
+    double doubleData;
+    int flags;
+    JSCallback jsCallback;
+    
+    void *jsCallbackUserData;
 
-    std::string data; ///< The contents of this variable if it is a string
-    long intData; ///< The contents of this variable if it is an int
-    double doubleData; ///< The contents of this variable if it is a double
-    int flags; ///< the flags determine the type of the variable - int/double/string/etc
-    JSCallback jsCallback; ///< Callback for native functions
-    void *jsCallbackUserData; ///< user data passed as second argument to native functions
-
-    void init(); ///< initialisation of data members
-
-    /** Copy the basic data and flags from the variable given, with no
-      * children. Should be used internally only - by copyValue and deepCopy */
+    void init();
     void copySimpleData(Variable *val);
 
-    friend class CTinyJS;
+    friend class JavaScript;
 };
 
-class CTinyJS {
+class JavaScript {
 public:
-    CTinyJS();
-    ~CTinyJS();
+    JavaScript();
+    ~JavaScript();
 
     void execute(const std::string &code);
-    /** Evaluate the given code and return a link to a javascript object,
-     * useful for (dangerous) JSON parsing. If nothing to return, will return
-     * 'undefined' variable type. VarLink is returned as this will
-     * automatically unref the result as it goes out of scope. If you want to
-     * keep it, you must use ref() and unref() */
+
     VarLink evaluateComplex(const std::string &code);
-    /** Evaluate the given code and return a string. If nothing to return, will return
-     * 'undefined' */
     std::string evaluate(const std::string &code);
 
-    /// add a native function to be called from TinyJS
-    /** example:
-       \code
-           void scRandInt(Variable *c, void *userdata) { ... }
-           tinyJS->addNative("function randInt(min, max)", scRandInt, 0);
-       \endcode
-
-       or
-
-       \code
-           void scSubstring(Variable *c, void *userdata) { ... }
-           tinyJS->addNative("function String.substring(lo, hi)", scSubstring, 0);
-       \endcode
-    */
     void addNative(const std::string &funcDesc, JSCallback ptr, void *userdata);
 
-    /// Get the given variable specified by a path (var1.var2.etc), or return 0
     Variable *getScriptVariable(const std::string &path);
-    /// Get the value of the given variable, or return 0
     const std::string *getVariable(const std::string &path);
-    /// set the value of the given variable, return trur if it exists and gets set
     bool setVariable(const std::string &path, const std::string &varData);
 
-    /// Send all variables to stdout
     void trace();
 
-    Variable *root;   /// root of symbol table
+    Variable *root;
 private:
-    Lexeme *l;             /// current lexer
-    std::vector<Variable*> scopes; /// stack of scopes when parsing
-#ifdef TINYJS_CALL_STACK
-    std::vector<std::string> call_stack; /// Names of places called so we can show when erroring
+    Lexeme *l;
+    std::vector<Variable*> scopes;
+#ifdef JS_CALL_STACK
+    std::vector<std::string> call_stack;
 #endif
 
-    Variable *stringClass; /// Built in string class
-    Variable *objectClass; /// Built in object class
-    Variable *arrayClass; /// Built in array class
+    Variable *stringClass;
+    Variable *objectClass;
+    Variable *arrayClass;
 
-    // parsing - in order of precedence
     VarLink *functionCall(bool &execute, VarLink *function, Variable *parent);
     VarLink *factor(bool &execute);
     VarLink *unary(bool &execute);
@@ -314,12 +283,11 @@ private:
     VarLink *base(bool &execute);
     void block(bool &execute);
     void statement(bool &execute);
-    // parsing utility functions
+
     VarLink *parseFunctionDefinition();
     void parseFunctionArguments(Variable *funcVar);
 
-    VarLink *findInScopes(const std::string &childName); ///< Finds a child, looking recursively up the scopes
-    /// Look up in any parent classes of the given object
+    VarLink *findInScopes(const std::string &childName);
     VarLink *findInParentClasses(Variable *object, const std::string &name);
 };
 

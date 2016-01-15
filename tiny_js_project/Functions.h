@@ -1,8 +1,8 @@
-#ifndef TINYJS_FUNCTIONS_H
-#define TINYJS_FUNCTIONS_H
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #include "JavaScript.h"
 
-extern void registerFunctions(CTinyJS *tinyJS);
+extern void registerFunctions(JavaScript *tinyJS);
 
 #endif

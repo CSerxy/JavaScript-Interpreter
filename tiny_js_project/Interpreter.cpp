@@ -13,7 +13,7 @@ void js_print(Variable *v, void *userdata) {
 }
 
 void js_dump(Variable *v, void *userdata) {
-    CTinyJS *js = (CTinyJS*)userdata;
+    JavaScript *js = (JavaScript*)userdata;
     js->root->trace(">  ");
 }
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 
 void runTerminal()
 {
-    CTinyJS *js = new CTinyJS();
+    JavaScript *js = new JavaScript();
     
     registerFunctions(js);
     registerMathFunctions(js);
@@ -79,7 +79,7 @@ void runFile(string fileName)
     cout<<file<<endl;
     cout<<"#################### Result: "<< fileName <<"################"<<endl;
     
-    CTinyJS *js = new CTinyJS();
+    JavaScript *js = new JavaScript();
 
     registerFunctions(js);
     /* Add a native function */

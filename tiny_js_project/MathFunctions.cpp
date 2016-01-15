@@ -159,7 +159,7 @@ void scMathSqrt(Variable *c, void *userdata) {
     scReturnDouble( sqrtf( scGetDouble("a") ) );
 }
 
-void registerMathFunctions(CTinyJS *tinyJS) {
+void registerMathFunctions(JavaScript *tinyJS) {
     tinyJS->addNative("function Math.abs(a)", scMathAbs, 0);
     tinyJS->addNative("function Math.round(a)", scMathRound, 0);
     tinyJS->addNative("function Math.min(a,b)", scMathMin, 0);
