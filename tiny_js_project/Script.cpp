@@ -1,5 +1,6 @@
 #include "TinyJS.h"
 #include "TinyJS_Functions.h"
+#include "TinyJS_MathFunctions.h"
 #include <assert.h>
 #include <stdio.h>
 #include <cstring>
@@ -21,9 +22,10 @@ void js_dump(Variable *v, void *userdata) {
     js->root->trace(">  ");
 }
 
-void readFile(string);
+
 void runFile(string);
 void runTerminal();
+string readFile(string);
 
 int main(int argc, char **argv)
 {
@@ -50,6 +52,7 @@ void runTerminal()
     CTinyJS *js = new CTinyJS();
     /* add the functions from TinyJS_Functions.cpp */
     registerFunctions(js);
+    registerMathFunctions(js);
     /* Add a native function */
     js->addNative("function print(text)", &js_print, 0);
     js->addNative("function dump()", &js_dump, js);
@@ -76,8 +79,11 @@ void runTerminal()
 
 void runFile(string fileName)
 {
-    string line;
     ifstream myFile(fileName);
+    string file = readFile(fileName);
+    cout<<"############### Source Code: "<< fileName <<"################"<<endl;
+    cout<<file<<endl;
+    cout<<"#################### Result: "<< fileName <<"################"<<endl;
     
     CTinyJS *js = new CTinyJS();
     /* add the functions from TinyJS_Functions.cpp */
@@ -87,37 +93,39 @@ void runFile(string fileName)
     js->addNative("function dump()", &js_dump, js);
     
     try {
-        if (myFile.is_open()) {
-            while (getline(myFile, line)) {
-                cout<<line<<endl;
-                js->execute(line);
-            }
-        }
-        js->execute("print(result);");
+        js->execute("var lets_quit = 0; function quit() { lets_quit = 1; }");
+//        js->execute("print(\"Interactive mode... Type quit(); to exit, or print(...); to print something, or dump() to dump the symbol table!\");");
+    } catch (CScriptException *e) {
+        printf("ERROR: %s\n", e->text.c_str());
+    }
+
+    try {
+        js->execute(file);
     } catch (CScriptException *e) {
         printf("ERROR: %s\n", e->text.c_str());
     }
     
-    
-//    while (js->evaluate("lets_quit") == "0") {
-//        char buffer[2048];
-//        fgets ( buffer, sizeof(buffer), stdin );
-//        try {
-//            js->execute(buffer);
-//        } catch (CScriptException *e) {
-//            printf("ERROR: %s\n", e->text.c_str());
-//        }
-//    }
+    while (js->evaluate("lets_quit") == "0") {
+        char buffer[2048];
+        fgets ( buffer, sizeof(buffer), stdin );
+        try {
+            js->execute(buffer);
+        } catch (CScriptException *e) {
+            printf("ERROR: %s\n", e->text.c_str());
+        }
+    }
     delete js;
 }
 
-void readFile(string fileName)
+string readFile(string fileName)
 {
+    string file = "";
     string line;
     ifstream myFile(fileName);
     if (myFile.is_open()) {
         while (getline(myFile, line)) {
-            cout<<line<<endl;
+            file+=line+'\n';
         }
     }
+    return file;
 }
