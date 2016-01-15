@@ -30,7 +30,6 @@ int main(int argc, char **argv)
   /* Execute out bit of code - we could call 'evaluate' here if
      we wanted something returned */
   try {
-      js->execute(code);
     js->execute("var lets_quit = 0; function quit() { lets_quit = 1; }");
     js->execute("print(\"Interactive mode... Type quit(); to exit, or print(...); to print something, or dump() to dump the symbol table!\");");
   } catch (CScriptException *e) {
@@ -47,10 +46,5 @@ int main(int argc, char **argv)
     }
   }
   delete js;
-#ifdef _WIN32
-#ifdef _DEBUG
-  _CrtDumpMemoryLeaks();
-#endif
-#endif
   return 0;
 }
