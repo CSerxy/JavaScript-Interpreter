@@ -82,6 +82,7 @@ void runFile(string fileName)
     JavaScript *js = new JavaScript();
 
     registerFunctions(js);
+    registerMathFunctions(js);
     /* Add a native function */
     js->addNative("function print(text)", &js_print, 0);
     js->addNative("function dump()", &js_dump, js);

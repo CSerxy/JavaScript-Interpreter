@@ -8,5 +8,5 @@ function bar(myvalue) { myvalue++; }
 
 foo(b);
 bar(a);
-
-result = a==2 && b[0]==3;
+print(a);
+print(b[0]);

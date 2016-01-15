@@ -1,2 +1,4 @@
+//simple function
 function add(x,y) { return x+y; }
-result = add(1, -1);
+a = add(1, -1);
+print(a);

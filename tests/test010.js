@@ -1,17 +1,24 @@
-foo = "foo bar stuff";
-r = Math.random();
+a = "foo bar stuff";
+print(a);
+r = Math.rand();
+print(r);
 
-parsed = parseInt("42");
+parsed = Integer.parseInt("42");
+print(parsed);
 
-aStr = "ABCD";
-aChar = aStr.charAt(0);
+a_Str = "ABCD";
+aChar = a_Str.charAt(0);
+print(aChar);
 
 obj1 = new Object();
 obj1.food = "cake";
 obj1.desert = "pie";
+print(obj1.food+obj1.desert);
 
 obj2 = obj1.clone();
 obj2.food = "kittens";
+print(obj2.food);
 
-result = foo.length==13 && foo.indexOf("bar")==4 && foo.substring(8,13)=="stuff" && parsed==42 &&
-	aChar.charCodeAt()==65 && obj1.food=="cake" && obj2.desert=="pie";
+a = "a1bv1d1hfg1ewrt1sadfg1";
+b = a.split('1');
+for (i=0;i<b.length;i++) print(b[i]);
