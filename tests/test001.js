@@ -1,2 +1,3 @@
-// simply testing we can return the correct value
+var a = 100;
+print(a);
 result = 1;

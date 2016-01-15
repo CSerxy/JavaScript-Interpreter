@@ -1,3 +1,2 @@
-// simple function
-function add(x,y) { return x+y; }
-result = add(3,6)==9;
+function f(x) { if (x>1) return x + f(x-1); else return 1; }
+result = f(100);

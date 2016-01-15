@@ -1,4 +1,2 @@
-// simple for loop containing initialisation, using +=
-var a = 0;
-for (var i=1;i<10;i++) a += i;
-result = a==45;
+function fibonacci(a, b) { if (b < 100){ print(a); return fibonacci(b, a + b);} else return a;}
+result = fibonacci(0, 1);
