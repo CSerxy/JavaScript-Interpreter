@@ -1,7 +1,7 @@
 #include <math.h>
 #include <cstdlib>
 #include <sstream>
-#include "TinyJS_MathFunctions.h"
+#include "MathFunctions.h"
 
 using namespace std;
 

@@ -1,4 +1,4 @@
-#include "TinyJS_Functions.h"
+#include "Functions.h"
 #include <math.h>
 #include <cstdlib>
 #include <sstream>

@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		997309061C49070700388977 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308FF1C49070700388977 /* Script.cpp */; };
-		997309071C49070700388977 /* TinyJS_Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309001C49070700388977 /* TinyJS_Functions.cpp */; };
-		997309081C49070700388977 /* TinyJS_MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309021C49070700388977 /* TinyJS_MathFunctions.cpp */; };
-		997309091C49070700388977 /* TinyJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309041C49070700388977 /* TinyJS.cpp */; };
+		997309111C490EF000388977 /* Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9973090A1C490EF000388977 /* Functions.cpp */; };
+		997309121C490EF000388977 /* Interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9973090C1C490EF000388977 /* Interpreter.cpp */; };
+		997309131C490EF000388977 /* JavaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9973090D1C490EF000388977 /* JavaScript.cpp */; };
+		997309141C490EF000388977 /* MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9973090F1C490EF000388977 /* MathFunctions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,13 +27,13 @@
 
 /* Begin PBXFileReference section */
 		997308F51C4906F100388977 /* project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = project; sourceTree = BUILT_PRODUCTS_DIR; };
-		997308FF1C49070700388977 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Script.cpp; path = ../../tiny_js_project/Script.cpp; sourceTree = "<group>"; };
-		997309001C49070700388977 /* TinyJS_Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_Functions.cpp; path = ../../tiny_js_project/TinyJS_Functions.cpp; sourceTree = "<group>"; };
-		997309011C49070700388977 /* TinyJS_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_Functions.h; path = ../../tiny_js_project/TinyJS_Functions.h; sourceTree = "<group>"; };
-		997309021C49070700388977 /* TinyJS_MathFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_MathFunctions.cpp; path = ../../tiny_js_project/TinyJS_MathFunctions.cpp; sourceTree = "<group>"; };
-		997309031C49070700388977 /* TinyJS_MathFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_MathFunctions.h; path = ../../tiny_js_project/TinyJS_MathFunctions.h; sourceTree = "<group>"; };
-		997309041C49070700388977 /* TinyJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS.cpp; path = ../../tiny_js_project/TinyJS.cpp; sourceTree = "<group>"; };
-		997309051C49070700388977 /* TinyJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS.h; path = ../../tiny_js_project/TinyJS.h; sourceTree = "<group>"; };
+		9973090A1C490EF000388977 /* Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Functions.cpp; path = ../../tiny_js_project/Functions.cpp; sourceTree = "<group>"; };
+		9973090B1C490EF000388977 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Functions.h; path = ../../tiny_js_project/Functions.h; sourceTree = "<group>"; };
+		9973090C1C490EF000388977 /* Interpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interpreter.cpp; path = ../../tiny_js_project/Interpreter.cpp; sourceTree = "<group>"; };
+		9973090D1C490EF000388977 /* JavaScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JavaScript.cpp; path = ../../tiny_js_project/JavaScript.cpp; sourceTree = "<group>"; };
+		9973090E1C490EF000388977 /* JavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScript.h; path = ../../tiny_js_project/JavaScript.h; sourceTree = "<group>"; };
+		9973090F1C490EF000388977 /* MathFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathFunctions.cpp; path = ../../tiny_js_project/MathFunctions.cpp; sourceTree = "<group>"; };
+		997309101C490EF000388977 /* MathFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathFunctions.h; path = ../../tiny_js_project/MathFunctions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +66,13 @@
 		997308F71C4906F100388977 /* project */ = {
 			isa = PBXGroup;
 			children = (
-				997308FF1C49070700388977 /* Script.cpp */,
-				997309001C49070700388977 /* TinyJS_Functions.cpp */,
-				997309011C49070700388977 /* TinyJS_Functions.h */,
-				997309021C49070700388977 /* TinyJS_MathFunctions.cpp */,
-				997309031C49070700388977 /* TinyJS_MathFunctions.h */,
-				997309041C49070700388977 /* TinyJS.cpp */,
-				997309051C49070700388977 /* TinyJS.h */,
+				9973090A1C490EF000388977 /* Functions.cpp */,
+				9973090B1C490EF000388977 /* Functions.h */,
+				9973090C1C490EF000388977 /* Interpreter.cpp */,
+				9973090D1C490EF000388977 /* JavaScript.cpp */,
+				9973090E1C490EF000388977 /* JavaScript.h */,
+				9973090F1C490EF000388977 /* MathFunctions.cpp */,
+				997309101C490EF000388977 /* MathFunctions.h */,
 			);
 			path = project;
 			sourceTree = "<group>";
@@ -133,10 +133,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				997309091C49070700388977 /* TinyJS.cpp in Sources */,
-				997309071C49070700388977 /* TinyJS_Functions.cpp in Sources */,
-				997309061C49070700388977 /* Script.cpp in Sources */,
-				997309081C49070700388977 /* TinyJS_MathFunctions.cpp in Sources */,
+				997309121C490EF000388977 /* Interpreter.cpp in Sources */,
+				997309141C490EF000388977 /* MathFunctions.cpp in Sources */,
+				997309131C490EF000388977 /* JavaScript.cpp in Sources */,
+				997309111C490EF000388977 /* Functions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +255,7 @@
 				997308FE1C4906F100388977 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

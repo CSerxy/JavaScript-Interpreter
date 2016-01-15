@@ -1,4 +1,4 @@
-#include "TinyJS.h"
+#include "JavaScript.h"
 #include <assert.h>
 
 #define ASSERT(X) assert(X)

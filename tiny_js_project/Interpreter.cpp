@@ -1,6 +1,6 @@
-#include "TinyJS.h"
-#include "TinyJS_Functions.h"
-#include "TinyJS_MathFunctions.h"
+#include "JavaScript.h"
+#include "Functions.h"
+#include "MathFunctions.h"
 #include <assert.h>
 #include <stdio.h>
 #include <cstring>
