@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		997308D21C48EAC200388977 /* TinyJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308CC1C48EAC200388977 /* TinyJS.cpp */; };
-		997308D31C48EAC200388977 /* TinyJS_MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308CE1C48EAC200388977 /* TinyJS_MathFunctions.cpp */; };
-		997308D41C48EAC200388977 /* TinyJS_Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308D01C48EAC200388977 /* TinyJS_Functions.cpp */; };
-		997308D51C48EAC200388977 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308D11C48EAC200388977 /* Script.cpp */; };
+		997309061C49070700388977 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997308FF1C49070700388977 /* Script.cpp */; };
+		997309071C49070700388977 /* TinyJS_Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309001C49070700388977 /* TinyJS_Functions.cpp */; };
+		997309081C49070700388977 /* TinyJS_MathFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309021C49070700388977 /* TinyJS_MathFunctions.cpp */; };
+		997309091C49070700388977 /* TinyJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 997309041C49070700388977 /* TinyJS.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		997308BF1C48EA9500388977 /* CopyFiles */ = {
+		997308F31C4906F100388977 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -26,18 +26,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		997308C11C48EA9500388977 /* project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = project; sourceTree = BUILT_PRODUCTS_DIR; };
-		997308CB1C48EAC200388977 /* TinyJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS.h; path = ../../tiny_js_project/TinyJS.h; sourceTree = "<group>"; };
-		997308CC1C48EAC200388977 /* TinyJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS.cpp; path = ../../tiny_js_project/TinyJS.cpp; sourceTree = "<group>"; };
-		997308CD1C48EAC200388977 /* TinyJS_MathFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_MathFunctions.h; path = ../../tiny_js_project/TinyJS_MathFunctions.h; sourceTree = "<group>"; };
-		997308CE1C48EAC200388977 /* TinyJS_MathFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_MathFunctions.cpp; path = ../../tiny_js_project/TinyJS_MathFunctions.cpp; sourceTree = "<group>"; };
-		997308CF1C48EAC200388977 /* TinyJS_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_Functions.h; path = ../../tiny_js_project/TinyJS_Functions.h; sourceTree = "<group>"; };
-		997308D01C48EAC200388977 /* TinyJS_Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_Functions.cpp; path = ../../tiny_js_project/TinyJS_Functions.cpp; sourceTree = "<group>"; };
-		997308D11C48EAC200388977 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Script.cpp; path = ../../tiny_js_project/Script.cpp; sourceTree = "<group>"; };
+		997308F51C4906F100388977 /* project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = project; sourceTree = BUILT_PRODUCTS_DIR; };
+		997308FF1C49070700388977 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Script.cpp; path = ../../tiny_js_project/Script.cpp; sourceTree = "<group>"; };
+		997309001C49070700388977 /* TinyJS_Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_Functions.cpp; path = ../../tiny_js_project/TinyJS_Functions.cpp; sourceTree = "<group>"; };
+		997309011C49070700388977 /* TinyJS_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_Functions.h; path = ../../tiny_js_project/TinyJS_Functions.h; sourceTree = "<group>"; };
+		997309021C49070700388977 /* TinyJS_MathFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS_MathFunctions.cpp; path = ../../tiny_js_project/TinyJS_MathFunctions.cpp; sourceTree = "<group>"; };
+		997309031C49070700388977 /* TinyJS_MathFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS_MathFunctions.h; path = ../../tiny_js_project/TinyJS_MathFunctions.h; sourceTree = "<group>"; };
+		997309041C49070700388977 /* TinyJS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TinyJS.cpp; path = ../../tiny_js_project/TinyJS.cpp; sourceTree = "<group>"; };
+		997309051C49070700388977 /* TinyJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TinyJS.h; path = ../../tiny_js_project/TinyJS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		997308BE1C48EA9500388977 /* Frameworks */ = {
+		997308F21C4906F100388977 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,32 +47,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		997308B81C48EA9500388977 = {
+		997308EC1C4906F100388977 = {
 			isa = PBXGroup;
 			children = (
-				997308C31C48EA9500388977 /* project */,
-				997308C21C48EA9500388977 /* Products */,
+				997308F71C4906F100388977 /* project */,
+				997308F61C4906F100388977 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		997308C21C48EA9500388977 /* Products */ = {
+		997308F61C4906F100388977 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				997308C11C48EA9500388977 /* project */,
+				997308F51C4906F100388977 /* project */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		997308C31C48EA9500388977 /* project */ = {
+		997308F71C4906F100388977 /* project */ = {
 			isa = PBXGroup;
 			children = (
-				997308CB1C48EAC200388977 /* TinyJS.h */,
-				997308CC1C48EAC200388977 /* TinyJS.cpp */,
-				997308CD1C48EAC200388977 /* TinyJS_MathFunctions.h */,
-				997308CE1C48EAC200388977 /* TinyJS_MathFunctions.cpp */,
-				997308CF1C48EAC200388977 /* TinyJS_Functions.h */,
-				997308D01C48EAC200388977 /* TinyJS_Functions.cpp */,
-				997308D11C48EAC200388977 /* Script.cpp */,
+				997308FF1C49070700388977 /* Script.cpp */,
+				997309001C49070700388977 /* TinyJS_Functions.cpp */,
+				997309011C49070700388977 /* TinyJS_Functions.h */,
+				997309021C49070700388977 /* TinyJS_MathFunctions.cpp */,
+				997309031C49070700388977 /* TinyJS_MathFunctions.h */,
+				997309041C49070700388977 /* TinyJS.cpp */,
+				997309051C49070700388977 /* TinyJS.h */,
 			);
 			path = project;
 			sourceTree = "<group>";
@@ -80,13 +80,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		997308C01C48EA9500388977 /* project */ = {
+		997308F41C4906F100388977 /* project */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 997308C81C48EA9500388977 /* Build configuration list for PBXNativeTarget "project" */;
+			buildConfigurationList = 997308FC1C4906F100388977 /* Build configuration list for PBXNativeTarget "project" */;
 			buildPhases = (
-				997308BD1C48EA9500388977 /* Sources */,
-				997308BE1C48EA9500388977 /* Frameworks */,
-				997308BF1C48EA9500388977 /* CopyFiles */,
+				997308F11C4906F100388977 /* Sources */,
+				997308F21C4906F100388977 /* Frameworks */,
+				997308F31C4906F100388977 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -94,56 +94,56 @@
 			);
 			name = project;
 			productName = project;
-			productReference = 997308C11C48EA9500388977 /* project */;
+			productReference = 997308F51C4906F100388977 /* project */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		997308B91C48EA9500388977 /* Project object */ = {
+		997308ED1C4906F100388977 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = cserxy;
 				TargetAttributes = {
-					997308C01C48EA9500388977 = {
+					997308F41C4906F100388977 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
-			buildConfigurationList = 997308BC1C48EA9500388977 /* Build configuration list for PBXProject "project" */;
+			buildConfigurationList = 997308F01C4906F100388977 /* Build configuration list for PBXProject "project" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 997308B81C48EA9500388977;
-			productRefGroup = 997308C21C48EA9500388977 /* Products */;
+			mainGroup = 997308EC1C4906F100388977;
+			productRefGroup = 997308F61C4906F100388977 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				997308C01C48EA9500388977 /* project */,
+				997308F41C4906F100388977 /* project */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		997308BD1C48EA9500388977 /* Sources */ = {
+		997308F11C4906F100388977 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				997308D51C48EAC200388977 /* Script.cpp in Sources */,
-				997308D31C48EAC200388977 /* TinyJS_MathFunctions.cpp in Sources */,
-				997308D41C48EAC200388977 /* TinyJS_Functions.cpp in Sources */,
-				997308D21C48EAC200388977 /* TinyJS.cpp in Sources */,
+				997309091C49070700388977 /* TinyJS.cpp in Sources */,
+				997309071C49070700388977 /* TinyJS_Functions.cpp in Sources */,
+				997309061C49070700388977 /* Script.cpp in Sources */,
+				997309081C49070700388977 /* TinyJS_MathFunctions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		997308C61C48EA9500388977 /* Debug */ = {
+		997308FA1C4906F100388977 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -186,7 +186,7 @@
 			};
 			name = Debug;
 		};
-		997308C71C48EA9500388977 /* Release */ = {
+		997308FB1C4906F100388977 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -222,14 +222,14 @@
 			};
 			name = Release;
 		};
-		997308C91C48EA9500388977 /* Debug */ = {
+		997308FD1C4906F100388977 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		997308CA1C48EA9500388977 /* Release */ = {
+		997308FE1C4906F100388977 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -239,24 +239,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		997308BC1C48EA9500388977 /* Build configuration list for PBXProject "project" */ = {
+		997308F01C4906F100388977 /* Build configuration list for PBXProject "project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				997308C61C48EA9500388977 /* Debug */,
-				997308C71C48EA9500388977 /* Release */,
+				997308FA1C4906F100388977 /* Debug */,
+				997308FB1C4906F100388977 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		997308C81C48EA9500388977 /* Build configuration list for PBXNativeTarget "project" */ = {
+		997308FC1C4906F100388977 /* Build configuration list for PBXNativeTarget "project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				997308C91C48EA9500388977 /* Debug */,
-				997308CA1C48EA9500388977 /* Release */,
+				997308FD1C4906F100388977 /* Debug */,
+				997308FE1C4906F100388977 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 997308B91C48EA9500388977 /* Project object */;
+	rootObject = 997308ED1C4906F100388977 /* Project object */;
 }

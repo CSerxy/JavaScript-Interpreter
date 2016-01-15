@@ -4,7 +4,7 @@
 #include <sstream>
 
 using namespace std;
-// ----------------------------------------------- Actual Functions
+
 void scTrace(Variable *c, void *userdata) {
     CTinyJS *js = (CTinyJS*)userdata;
     js->root->trace();
@@ -190,28 +190,25 @@ void scArrayJoin(Variable *c, void *data) {
   c->getReturnVar()->setString(sstr.str());
 }
 
-// ----------------------------------------------- Register Functions
 void registerFunctions(CTinyJS *tinyJS) {
-    tinyJS->addNative("function exec(jsCode)", scExec, tinyJS); // execute the given code
-    tinyJS->addNative("function eval(jsCode)", scEval, tinyJS); // execute the given string (an expression) and return the result
+    tinyJS->addNative("function exec(jsCode)", scExec, tinyJS);
+    tinyJS->addNative("function eval(jsCode)", scEval, tinyJS);
     tinyJS->addNative("function trace()", scTrace, tinyJS);
     tinyJS->addNative("function Object.dump()", scObjectDump, 0);
     tinyJS->addNative("function Object.clone()", scObjectClone, 0);
     tinyJS->addNative("function Math.rand()", scMathRand, 0);
     tinyJS->addNative("function Math.randInt(min, max)", scMathRandInt, 0);
-    tinyJS->addNative("function charToInt(ch)", scCharToInt, 0); //  convert a character to an int - get its value
-    tinyJS->addNative("function String.indexOf(search)", scStringIndexOf, 0); // find the position of a string in a string, -1 if not
+    tinyJS->addNative("function charToInt(ch)", scCharToInt, 0);
+    tinyJS->addNative("function String.indexOf(search)", scStringIndexOf, 0);
     tinyJS->addNative("function String.substring(lo,hi)", scStringSubstring, 0);
     tinyJS->addNative("function String.charAt(pos)", scStringCharAt, 0);
     tinyJS->addNative("function String.charCodeAt(pos)", scStringCharCodeAt, 0);
     tinyJS->addNative("function String.fromCharCode(char)", scStringFromCharCode, 0);
     tinyJS->addNative("function String.split(separator)", scStringSplit, 0);
     tinyJS->addNative("function Integer.parseInt(str)", scIntegerParseInt, 0); // string to int
-    tinyJS->addNative("function Integer.valueOf(str)", scIntegerValueOf, 0); // value of a single character
-    tinyJS->addNative("function JSON.stringify(obj, replacer)", scJSONStringify, 0); // convert to JSON. replacer is ignored at the moment
-    // JSON.parse is left out as you can (unsafely!) use eval instead
+    tinyJS->addNative("function Integer.valueOf(str)", scIntegerValueOf, 0);
+    tinyJS->addNative("function JSON.stringify(obj, replacer)", scJSONStringify, 0);
     tinyJS->addNative("function Array.contains(obj)", scArrayContains, 0);
     tinyJS->addNative("function Array.remove(obj)", scArrayRemove, 0);
     tinyJS->addNative("function Array.join(separator)", scArrayJoin, 0);
 }
-

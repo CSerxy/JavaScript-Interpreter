@@ -3,7 +3,6 @@
 
 #include "TinyJS.h"
 
-/// Register useful math. functions with the TinyJS interpreter
 extern void registerMathFunctions(CTinyJS *tinyJS);
 
 #endif

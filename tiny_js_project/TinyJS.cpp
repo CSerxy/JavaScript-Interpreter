@@ -16,71 +16,12 @@
 
 using namespace std;
 
-#ifdef _WIN32
-#ifdef _DEBUG
-   #ifndef DBG_NEW
-      #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-      #define new DBG_NEW
-   #endif
-#endif
-#endif
-
 #ifdef __GNUC__
 #define vsprintf_s vsnprintf
 #define sprintf_s snprintf
 #define _strdup strdup
 #endif
 
-// ----------------------------------------------------------------------------------- Memory Debug
-
-#define DEBUG_MEMORY 0
-
-#if DEBUG_MEMORY
-
-vector<Variable*> allocatedVars;
-vector<VarLink*> allocatedLinks;
-
-void mark_allocated(Variable *v) {
-    allocatedVars.push_back(v);
-}
-
-void mark_deallocated(Variable *v) {
-    for (size_t i=0;i<allocatedVars.size();i++) {
-      if (allocatedVars[i] == v) {
-        allocatedVars.erase(allocatedVars.begin()+i);
-        break;
-      }
-    }
-}
-
-void mark_allocated(VarLink *v) {
-    allocatedLinks.push_back(v);
-}
-
-void mark_deallocated(VarLink *v) {
-    for (size_t i=0;i<allocatedLinks.size();i++) {
-      if (allocatedLinks[i] == v) {
-        allocatedLinks.erase(allocatedLinks.begin()+i);
-        break;
-      }
-    }
-}
-
-void show_allocated() {
-    for (size_t i=0;i<allocatedVars.size();i++) {
-      printf("ALLOCATED, %d refs\n", allocatedVars[i]->getRefs());
-      allocatedVars[i]->trace("  ");
-    }
-    for (size_t i=0;i<allocatedLinks.size();i++) {
-      printf("ALLOCATED LINK %s, allocated[%d] to \n", allocatedLinks[i]->name.c_str(), allocatedLinks[i]->var->getRefs());
-      allocatedLinks[i]->var->trace("  ");
-    }
-    allocatedVars.clear();
-    allocatedLinks.clear();
-}
-#endif
-
-// ----------------------------------------------------------------------------------- Utils
 bool isWhitespace(char ch) {
     return (ch==' ') || (ch=='\t') || (ch=='\n') || (ch=='\r');
 }
@@ -167,8 +108,6 @@ bool isAlphaNum(const std::string &str) {
 CScriptException::CScriptException(const std::string &exceptionText) {
     text = exceptionText;
 }
-
-// ----------------------------------------------------------------------------------- CSCRIPTLEX
 
 Lexeme::Lexeme(const string &input) {
     data = _strdup(input.c_str());
@@ -352,7 +291,6 @@ void Lexeme::getNextToken() {
           }
         }
     } else if (currCh=='"') {
-        // strings...
         getNextCh();
         while (currCh && currCh!='"') {
             if (currCh == '\\') {
@@ -371,7 +309,6 @@ void Lexeme::getNextToken() {
         getNextCh();
         tk = LEX_STR;
     } else if (currCh=='\'') {
-        // strings again...
         getNextCh();
         while (currCh && currCh!='\'') {
             if (currCh == '\\') {
@@ -407,7 +344,6 @@ void Lexeme::getNextToken() {
         getNextCh();
         tk = LEX_STR;
     } else {
-        // single chars
         tk = currCh;
         if (currCh) getNextCh();
         if (tk=='=' && currCh=='=') { // ==
@@ -525,8 +461,6 @@ string Lexeme::getPosition(int pos) {
     return buf;
 }
 
-// ----------------------------------------------------------------------------------- CSCRIPTVARLINK
-
 VarLink::VarLink(Variable *var, const std::string &name) {
 #if DEBUG_MEMORY
     mark_allocated(this);
@@ -539,10 +473,6 @@ VarLink::VarLink(Variable *var, const std::string &name) {
 }
 
 VarLink::VarLink(const VarLink &link) {
-    // Copy constructor
-#if DEBUG_MEMORY
-    mark_allocated(this);
-#endif
     this->name = link.name;
     this->nextSibling = 0;
     this->prevSibling = 0;
@@ -551,9 +481,6 @@ VarLink::VarLink(const VarLink &link) {
 }
 
 VarLink::~VarLink() {
-#if DEBUG_MEMORY
-    mark_deallocated(this);
-#endif
     var->unref();
 }
 
@@ -578,8 +505,6 @@ void VarLink::setIntName(int n) {
     sprintf_s(sIdx, sizeof(sIdx), "%d", n);
     name = sIdx;
 }
-
-// ----------------------------------------------------------------------------------- CSCRIPTVAR
 
 Variable::Variable() {
     refs = 0;
