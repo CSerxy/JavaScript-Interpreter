@@ -1,4 +1,2 @@
-// simple if
-var a = 42;
-if (a < 43)
-  result = 1;
+function add(x,y) { return x+y; }
+result = add(1, -1);

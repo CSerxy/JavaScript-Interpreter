@@ -105,6 +105,7 @@ void runFile(string fileName)
         printf("ERROR: %s\n", e->text.c_str());
     }
     
+    cout<<"You can continue writing script. Type quit(); to exit, or print(...); to print something, or dump() to dump the symbol table!"<<endl;
     while (js->evaluate("lets_quit") == "0") {
         char buffer[2048];
         fgets ( buffer, sizeof(buffer), stdin );

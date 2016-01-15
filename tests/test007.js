@@ -1,4 +1,8 @@
-// simple function scoping test
-var a = 7;
-function add(x,y) { var a=x+y; return a; }
-result = add(3,6)==9 && a==7;
+a = 1.5;   
+b = 1.5e2; 
+c = 0xFF;   
+d = "string";
+print(a);
+print(b);
+print(c);
+print(d);

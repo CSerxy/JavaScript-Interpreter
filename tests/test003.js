@@ -1,5 +1,2 @@
-// simple for loop
-var a = 0;
-var i;
-for (i=1;i<10;i++) a = a + i;
-result = a==45;
+var value = -1;
+if (value < 0) result = 1; else result = 0;
